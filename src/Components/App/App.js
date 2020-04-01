@@ -9,8 +9,43 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      searchResults: []
+      searchResults: [],
+      playlistName: "name",
+      playlistTracks: [
+        {
+          name: "name",
+          artist: "artist",
+          album: "album",
+          id: "id"
+        },
+        {
+          name: "name",
+          artist: "artist",
+          album: "album",
+          id: "id"
+        },
+        {
+          name: "name",
+          artist: "artist",
+          album: "album",
+          id: "id"
+        }
+      ]
     };
+
+    this.addTrack = this.addTrack.bind(this);
+  }
+
+  addTrack(track) {
+    alert(`if '${track}' says 'undefined' it's not gonna work`);
+    if (
+      this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)
+    ) {
+      return;
+    } else {
+      const newPlaylist = this.state.playlistTracks.push(track);
+      this.setState({ playlistTracks: newPlaylist });
+    }
   }
 
   render() {
@@ -22,8 +57,14 @@ class App extends React.Component {
         <div className="App">
           <SearchBar />
           <div className="App-playlist">
-            <SearchResults searchResults={this.state.searchResults} />
-            <Playlist />
+            <SearchResults
+              searchResults={this.state.searchResults}
+              onAdd={this.addTrack}
+            />
+            <Playlist
+              playlistName={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
+            />
           </div>
         </div>
       </div>
