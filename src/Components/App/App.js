@@ -16,28 +16,28 @@ class App extends React.Component {
           name: "name",
           artist: "artist",
           album: "album",
-          id: "id"
+          id: "1"
         },
         {
           name: "name",
           artist: "artist",
           album: "album",
-          id: "id"
+          id: "2"
         },
         {
           name: "name",
           artist: "artist",
           album: "album",
-          id: "id"
+          id: "3"
         }
       ]
     };
 
     this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
   }
 
   addTrack(track) {
-    alert(`if '${track}' says 'undefined' it's not gonna work`);
     if (
       this.state.playlistTracks.find(savedTrack => savedTrack.id === track.id)
     ) {
@@ -46,6 +46,14 @@ class App extends React.Component {
       const newPlaylist = this.state.playlistTracks.push(track);
       this.setState({ playlistTracks: newPlaylist });
     }
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks.filter(
+      currentTrack => currentTrack.id !== track.id
+    );
+
+    this.setState({ playlistTracks: tracks });
   }
 
   render() {
@@ -64,6 +72,7 @@ class App extends React.Component {
             <Playlist
               playlistName={this.state.playlistName}
               playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
             />
           </div>
         </div>
